@@ -32,9 +32,12 @@ def dashboard(request):
     )
     total_stock_value = agregado['total_value'] or 0
 
+    low_stock_products = Product.objects.filter(stock_quantity__lt=5)
+
     context = {
         'total_products': total_products,
         'total_stock_value': total_stock_value,
+        'low_stock_products': low_stock_products,
     }
 
     return render(request, 'core/dashboard.html', context)
