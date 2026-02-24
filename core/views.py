@@ -1,6 +1,7 @@
 from django.shortcuts import render
-import pandas as pd
 from django.http import HttpResponse
+from django.db.models import Sum, F
+import pandas as pd
 from .models import Product
 
 
@@ -22,3 +23,18 @@ def export_products_to_excel(request):
         df.to_excel(writer, index=False, sheet_name='Products')
 
     return response
+
+
+def dashboard(request):
+    total_products = Product.objects.count()
+    agregado = Product.objects.aggregate(
+        total_value=Sum(F('stock_quantity') * F('price_sell'))
+    )
+    total_stock_value = agregado['total_value'] or 0
+
+    context = {
+        'total_products': total_products,
+        'total_stock_value': total_stock_value,
+    }
+
+    return render(request, 'core/dashboard.html', context)

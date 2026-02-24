@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import export_products_to_excel
+from .views import export_products_to_excel, dashboard
 
 
 urlpatterns = [
-    path('exportar-excel/', export_products_to_excel, name='export_excel')
+    path('', dashboard, name='dashboard'),
+    path('exportar-excel/', export_products_to_excel, name='export_excel'),
 ]

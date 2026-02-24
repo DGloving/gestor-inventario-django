@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card text-white bg-primary mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Total de Produtos</h5>
+                <p class="card-text display-4">{{ total_products }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card text-white bg-success mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Valor Estimado em Estoque</h5>
+                <p class="card-text display-4">R$ {{ total_stock_value|floatformat:2 }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-5">
+    <a href="{% url 'export_excel' %}" class="btn btn-success btn-lg mx-2 shadow">
+        📊 Baixar Relatório (Excel)
+    </a>
+    <a href="/admin/" class="btn btn-secondary btn-lg mx-2 shadow" target="_blank">
+        ⚙️ Cadastrar Dados (Admin)
+    </a>
+</div>
+{% endblock %}
